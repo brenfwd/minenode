@@ -10,6 +10,6 @@ pub struct AddResult {
 
 #[napi]
 pub fn adds(a: i32, b: i32) -> AddResult {
-    let res = minenode::add(a, b);
+    let res = a + b;
     AddResult { a, b, result: res }
 }

@@ -1,9 +1,9 @@
 {
   "name": "minenode_napi",
-  "main": "dist/index.js",
+  "main": "index.node",
   "private": true,
   "napi": {
-    "binaryName": "minenode_napi",
+    "binaryName": "index",
     "targets": [
       "x86_64-pc-windows-msvc",
       "x86_64-apple-darwin",
@@ -23,7 +23,7 @@
     "typescript": "^5.9.2"
   },
   "scripts": {
-    "build": "napi build --platform --output-dir dist",
+    "build": "napi build --dts index.d.ts",
     "build:release": "bun run build --release"
   }
 }

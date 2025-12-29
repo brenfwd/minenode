@@ -1,27 +1,31 @@
-CARGO ?= cargo
-BUN ?= bun
-
-BUN_TARGET = build
-
 .SUFFIXES:
 
-build: configure
-	cd crates/minenode_napi && $(BUN) run $(BUN_TARGET)
-.PHONY: build
+all: debug
+.PHONY: all
 
-release: BUN_TARGET = build:release
-release: build configure
-	cd js && $(BUN) build --compile --outfile=minenode-bundle --target=bun index.ts
-.PHONY: release
+debug: harness-debug
+.PHONY: debug
 
-configure:
-	cargo check
-	cd crates/minenode_napi && $(BUN) install
-	cd js && $(BUN) install
-.PHONY: configure
+harness-debug:
+	cargo build --bin minenode_harness
+.PHONY: harness-debug
+
+# minenode_napi uses napi-rs and must be built using its CLI tool
+napi-debug:
+	cd crates/minenode_napi && bun install --frozen-lockfile && bun run build
+.PHONY: napi-debug
+
+js-debug: napi-debug
+	cd js && bun install --frozen-lockfile && bun run build
+.PHONY: js-debug
+
+watch: harness-debug
+	@cargo install --locked bacon
+	bacon run -- --bin minenode_harness
+.PHONY: watch
 
 clean:
-	$(CARGO) clean
-	cd crates/minenode_napi && rm -rf node_modules/ dist/
-	cd js && rm -rf node_modules/ minenode-bundle
+	cargo clean
+	cd crates/minenode_napi && rm -rf node_modules
+	cd js && rm -rf node_modules
 .PHONY: clean
