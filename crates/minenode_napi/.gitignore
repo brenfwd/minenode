@@ -1,0 +1,9 @@
+build/Release
+
+node_modules/
+
+/dist
+/target
+Cargo.lock
+
+*.node
