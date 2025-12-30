@@ -7,4 +7,7 @@ edition = "2024"
 crate-type = ["rlib", "staticlib"]
 
 [dependencies]
-thiserror = "2.0.17"
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true }
+tokio-util = { workspace = true }

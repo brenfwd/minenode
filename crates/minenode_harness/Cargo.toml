@@ -5,3 +5,7 @@ edition = "2024"
 
 [dependencies]
 minenode = { path = "../minenode" }
+anyhow = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true }
+tokio-util = { workspace = true }

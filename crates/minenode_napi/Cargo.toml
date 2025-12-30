@@ -8,9 +8,10 @@ version = "0.1.0"
 crate-type = ["cdylib"]
 
 [dependencies]
-napi = "3.0.0"
+napi = { version = "3.0.0", features = ["async"] }
 napi-derive = "3.0.0"
 minenode = { path = "../minenode" }
+anyhow = { workspace = true }
 
 [build-dependencies]
 napi-build = "2"

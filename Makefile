@@ -26,6 +26,6 @@ watch: harness-debug
 
 clean:
 	cargo clean
-	cd crates/minenode_napi && rm -rf node_modules
+	cd crates/minenode_napi && rm -rf node_modules index*.node index.js index.d.ts
 	cd js && rm -rf node_modules
 .PHONY: clean

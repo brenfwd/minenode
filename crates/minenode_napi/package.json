@@ -23,7 +23,7 @@
     "typescript": "^5.9.2"
   },
   "scripts": {
-    "build": "napi build --dts index.d.ts",
+    "build": "napi build --platform",
     "build:release": "bun run build --release"
   }
 }
