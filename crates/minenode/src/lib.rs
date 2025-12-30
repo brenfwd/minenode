@@ -1,6 +1,6 @@
 use std::net::SocketAddr;
 
-use anyhow::Result;
+use anyhow::{Error, Result};
 use thiserror::Error;
 use tokio::{
     io::AsyncWriteExt,
@@ -21,6 +21,8 @@ pub enum ServerError {
     BindError(#[from] tokio::io::Error),
     #[error("task join error")]
     JoinError(#[from] tokio::task::JoinError),
+    #[error("unknown error")]
+    UnknownError(#[from] Error),
 }
 
 impl Server {
@@ -48,6 +50,11 @@ impl Server {
                 }
             }
         }
+        println!("Waiting for client_handles to drain...");
+        for handle in &mut self.client_handles {
+            handle.await??;
+        }
+        self.client_handles.clear();
         Ok(())
     }
 
